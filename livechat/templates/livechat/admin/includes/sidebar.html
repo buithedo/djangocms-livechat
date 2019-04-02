@@ -1,0 +1,37 @@
+{% load i18n static %}
+<div class="col-sm-4 chat_sidebar">
+   <div class="row">
+      <div id="custom-search-input">
+         <div class="input-group col-md-12">
+            <input type="text" class="search-query form-control" placeholder="Tìm cuộc hội thoại" />
+            <button class="btn btn-danger" type="button"><span class=" glyphicon glyphicon-search"></span></button>
+         </div>
+      </div>
+      <div class="dropdown all_conversation">
+         <button class="dropdown-toggle" 
+            type="button" 
+            id="dropdownMenu2" 
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+            filter = "all"
+            >
+            <i class="fa fa-weixin" aria-hidden="true"></i>Tất cả các cuộc hội thoại<span class="caret pull-right"></span>
+         </button>
+         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="#" filter="all" >Tất cả cuộc trò chuyện</a></li>
+            <li><a href="#" filter="today" >Trò chuyện hôm nay</a></li>
+            <li><a href="#" filter="open">Trò chuyện đang mở</a></li>
+            <li><a href="#" filter="closed" >Trò chuyện đã đóng</a></li>
+         </ul>
+      </div>
+      <div class="member_list">
+         <script>
+             var default_avatar_url = "{% static 'frontend/livechat/img/default_avatar.jpg' %}";
+         </script>
+         <ul class="list-unstyled">
+         </ul>
+      </div>
+   </div>
+</div>
+<!--chat_sidebar-->  

@@ -1,0 +1,116 @@
+{% load i18n staticfiles thumbnail cms_tags apphooks_config_tags static %}
+
+<div class="chat_client_container">
+    <div id="live_chat_key">{% if instance.obj_room != False %}{{instance.obj_room.key_hash}}{% endif %}</div>
+    <div id="user_chat">{% if instance.obj_room != False %}{{instance.obj_room.full_name}}{% endif %}</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chúng tôi đang ở đây để hỗ trợ bạn
+                    <div class="btn-group pull-right">
+                        <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapse_livechat">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </div>
+                </div>
+            <div class="panel-collapse collapse" id="collapse_livechat">
+               
+                <div class="panel-body" id="all_messages">
+
+                     <div class="col-md-12 register_chatroom 
+                        {% if instance.obj_room != False  %}
+                            hide
+                        {% endif %}
+                     " >
+                        <form action="" id="chat_register_form" >
+                            <h5>Bạn hãy cung cấp thông tin của mình để chúng tôi hiểu bạn hơn!</h5>
+
+                            <div class="form-group">
+                                <label for="chat_name">Lĩnh vực bạn cần hỗ trợ (*):</label>
+                                <select name="chat_type" id="chat_type" class="form-control" >
+                                    {% for item in instance.obj_channels %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="chat_name">Tên hiển thị (*):</label>
+                                <input type="text" required="1" class="form-control" id="chat_name" name="chat_name" placeholder="Nhập tên của bạn">
+                            </div>
+                            <div class="form-group">
+                                <label for="chat_email">Email:</label>
+                                <input type="email" class="form-control" id="chat_email" name="chat_email" placeholder="Nhập email của bạn" >
+                            </div>
+                            <div class="form-group">
+                                <label for="chat_phone">Số điện thoại:</label>
+                                <input type="number" class="form-control" id="chat_phone" name="chat_phone" min="100000000" max="99999999999" placeholder="Nhập số điện thoại của bạn" >
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="chat_save_his" id="chat_save_his">
+                                <label class="form-check-label" for="chat_save_his">Không lưu lịch sử chat</label>
+                            </div>
+                            <div class="form-group text-right">
+                                <p class="error"></p>
+                                <button type="submit" class="btn btn-primary">Gửi đi</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <ul class="chat">
+                        {% if instance.obj_room != False %}
+                            {% if instance.obj_room.check_his == False  %}
+                                {% for chat in instance.obj_room.get_all_message %}
+                                    {% if chat.chatter == instance.obj_room.full_name %}
+                                        <li class="right clearfix"><span class="chat-img pull-right">
+                                            <img src="https://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle"/>
+                                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{chat.created|date:"H:i d/m/Y"}}
+                                                    </small>
+                                                    <strong class="pull-right primary-font">{{ chat.chatter }}</strong>
+                                                </div>
+                                                <p>
+                                                    {{ chat.message|safe }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        {% else %}
+                                        <li class="left clearfix"><span class="chat-img pull-left">
+                                            <img src="https://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle"/>
+                                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{chat.created|date:"H:i d/m/Y"}}
+                                                    </small>
+                                                    <strong class="pull-right primary-font">{{ chat.chatter }}</strong>
+                                                </div>
+                                                <p>
+                                                    {{ chat.message|safe }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="panel-footer
+                        {% if instance.obj_room == False  %}
+                            hide
+                        {% endif %} ">
+                    <div class="input-group">
+                        <input id="chat-message-input" type="text" class="form-control input-sm" placeholder="Hãy nhập thông điệp của bạn..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="chat-message-submit">Gửi</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

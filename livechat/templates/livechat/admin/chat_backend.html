@@ -1,0 +1,46 @@
+{% extends 'admin/change_list.html'  %}
+{% load static i18n %}
+{% block extrahead %}<link rel="stylesheet" type="text/css" href="{% static 'admin/livechat/css/livechat.css' %}" />{% endblock %}
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" integrity="sha384-DmABxgPhJN5jlTwituIyzIUk6oqyzf3+XuP7q3VfcWA2unxgim7OSSZKKf0KSsnh" crossorigin="anonymous">
+<!------ Include the above in your HEAD tag ---------->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<div class="main_section">
+   	<div class="container">
+      	<div class="chat_container">
+
+		 	{% include 'livechat/admin/includes/sidebar.html' %}
+
+         	<div class="col-sm-8 message_section">
+				<div class="row">
+					<div class="new_message_head">
+						<div class="pull-left"><button><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span class="room_title" ></span> (<span class="room_type" ></span>) </button></div>
+						<div class="pull-right">
+							<span id="roomName"></span>
+							<span id="user_chat">{{user.get_username}}</span>
+						</div>
+					</div><!--new_message_head-->
+			 
+					<div class="chat_area">
+					 	<ul class="list-unstyled">
+						</ul>
+				 	</div><!--chat_area-->
+		          	<div class="message_write">
+						<textarea class="form-control" id="chat-message-input" placeholder="Nhập tin nhắn của bạn"></textarea>
+						<div class="clearfix"></div>
+						<div class="chat_bottom">
+							<!-- <a href="#" class="pull-left close_btn"><i class="fa fa-close" aria-hidden="true"></i> Đóng hội thoại</a> -->
+							<a href="#" class="pull-right btn btn-success" id="chat-message-submit" >Gửi</a>
+						</div>
+					</div>
+				</div>
+        	</div> <!--message_section-->
+     	</div>
+   	</div>
+</div>
+	    
+{% csrf_token %}
+<script src="{% static 'admin/livechat/js/livechat.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
